@@ -1,0 +1,1 @@
+<div id="pageFooter"><a href="http://localhost/dbms/storeadmin">Admin</a></div>
