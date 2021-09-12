@@ -80,6 +80,18 @@ CREATE TABLE IF NOT EXISTS `products` (
   `date_added` date NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
+
+
+CREATE TABLE IF NOT EXISTS `payment` (
+  `cid` int(11) NOT NULL,
+  `amount` varchar(8) NOT NULL,
+  `cardnumber` varchar(30) NOT NULL,
+  `txnID` varchar(100) NOT NULL,
+  `cvc` varchar(10) NOT NULL,
+  `postal` varchar(11) NOT NULL,
+  `payment_time` varchar(20) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `products`
 --

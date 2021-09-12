@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 ?>
+
 <?php
 include "storescripts/connect_to_mysql.php";
 if (isset($_POST['name'])) {

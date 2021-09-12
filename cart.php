@@ -51,6 +51,12 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "emptycart" && isset($_SESSION["id"])
 ?>
 
 <?php
+if (isset($_GET['cmd']) && $_GET['cmd'] == "checkout" && isset($_SESSION["id"])) {
+    header("location: checkout.php");
+}
+?>
+
+<?php
 if (isset($_POST['item_to_adjust']) && $_POST['item_to_adjust'] != "" && isset($_SESSION["id"])) {
     $cid = $_SESSION["id"];
     $item_to_adjust = $_POST['item_to_adjust'];
@@ -79,7 +85,7 @@ if (isset($_POST['index_to_remove']) && $_POST['index_to_remove'] != ""  && isse
 
 <?php
 $cartOutput = "";
-$cartTotal = 0;
+$cartTotal = NULL;
 if (isset($_SESSION["id"])) {
     $cid = $_SESSION["id"];
     $sql = mysqli_query($conn, "SELECT * FROM customer_cart WHERE customerid='$cid'") or die(mysqli_error($conn));
@@ -114,6 +120,7 @@ if (isset($_SESSION["id"])) {
         $cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : " . $cartTotal . " USD</div>";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -125,11 +132,16 @@ if (isset($_SESSION["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
     <link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>
     <div align="center" id="mainWrapper">
-        <?php include_once("template_header.php"); ?>
+        <?php include_once("template_header.php"); 
+        if (isset($_GET['success'])) {
+            echo "Payment completed successfully. Cart has been cleared.";
+        }
+        ?>
         <div id="pageContent">
             <div style="margin:24px; text-align:left;">
 
@@ -159,12 +171,16 @@ if (isset($_SESSION["id"])) {
                 <br />
                 <br />
                 <a href="cart.php?cmd=emptycart">Click Here to Empty Your Shopping Cart</a>
-                
+                </br>
+                </br>
+                <a href="cart.php?cmd=checkout">Click Here to Checkout</a>
+
             </div>
             <br />
         </div>
         <?php include_once("template_footer.php"); ?>
     </div>
+
 </body>
 
 </html>
